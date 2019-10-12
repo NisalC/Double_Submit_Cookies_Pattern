@@ -1,0 +1,7 @@
+body{
+   background-color:	#F0FFFF;
+}
+.container{
+  border: 2px solid red;
+ border-radius: 8px;
+}

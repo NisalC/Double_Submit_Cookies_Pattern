@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bckgrnd.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="jquery-2.2.0.min.js"></script>
+    <script type="text/javascript">
+        function getCSRFToken(tokenKey){
+            var nameSearchStr = tokenKey + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieAttrKeyValuePairs = decodedCookie.split(';');
+            for(i = 0; i < cookieAttrKeyValuePairs.length; i++) {
+                var attrKeyVal = cookieAttrKeyValuePairs[i];
+                attrKeyVal = attrKeyVal.replace(/^\s+/g, '');
+                if (attrKeyVal.indexOf(nameSearchStr) == 0) {
+                    return attrKeyVal.substring(nameSearchStr.length, attrKeyVal.length);
+                }
+            }
+            return "";
+        }
+
+        $(document).ready(function(){
+            token = getCSRFToken("CSRF_TOKEN");
+
+            var tokenField = document.createElement("input");
+            tokenField.setAttribute("type", "hidden");
+            tokenField.setAttribute("name", "csrf_token");
+            tokenField.setAttribute("value", token);
+
+            document.getElementById("addUserForm").appendChild(tokenField);
+        });
+    </script>
+</head>
+<body>
+    <div align="center" class="container" style="width:30%">
+        <h1 align="center">Add User</h1>
+        <br>
+        <br>
+        <div align="center">
+            <form id="addUserForm" action="validate_token.php" method="POST">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input name="name" type="text" class="form-control" id="name">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input name="email" type="text" class="form-control" id="email">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input name="age" type="text" class="form-control" id="age">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <input name="gender" type="text" class="form-control" id="gender">
+                </div>
+                <button type="submit" class="btn btn-primary">Insert</button>
+            </form>
+            <img src="src\Crystal_Project_Add_user.png">
+        </div>
+    </div>
+</body>
+</html>
